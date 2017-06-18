@@ -12,10 +12,18 @@ $(document).ready(function() {
 
     var database = firebase.database();
 
-    // var name = "";
-    // var destination = "";
-    // var firstTrain = "";
-    // var frequency = "";
+    var name = "";
+    var destination = "";
+    var firstTrain = "";
+    var frequency = "";
+    var tFrequency = "";
+    var firstTrainTime = "";
+    var firstTimeConverted = "";
+    var currentTime = "";
+    var timeDiff = "";
+    var remainder = "";
+    var minutesUntilTrain = "";
+    var nextTrain = "";
 
 
     $("#submit").on('click', function() {
@@ -26,12 +34,24 @@ $(document).ready(function() {
         var firstTrain = $("#firstTrain").val().trim();
         var frequency = $("#frequency").val().trim();
 
+        var firstTimeConverted = moment(firstTrain, "hh:mm").subtract(1, "years");
+        var currentTime = moment();
+        var timeDiff = moment().diff(moment(firstTimeConverted), "minutes");
+        var remainder = timeDiff % frequency;
+        var minutesUntilTrain = frequency - remainder;
+        var nextTrain = moment().add(minutesUntilTrain, "minutes");
+        var arrivalTime = moment(nextTrain).format("hh:mm");
+        console.log(arrivalTime)
+
         database.ref().push({
             name: name,
             destination: destination,
             firstTrain: firstTrain,
-            frequency: frequency
+            frequency: frequency,
+            arrivalTime: arrivalTime,
+            minutesUntilTrain: minutesUntilTrain
         });
+
 
         $("#name").val("");
         $("#destination").val("");
@@ -40,16 +60,17 @@ $(document).ready(function() {
 
     });
 
+
     database.ref().on('child_added', function(snapshot) {
 
         $("#table").append(
             "<tr><td>" + snapshot.val().name +
             "</td><td>" + snapshot.val().destination +
             "</td><td>" + snapshot.val().frequency +
-            // "</td><td>" + snapshot.val(). +
-            // "</td><td>" + snapshot.val().name + 
-            // "</td><td>" + snapshot.val().name + 
+            "</td><td>" + snapshot.val().arrivalTime +
+            "</td><td>" + snapshot.val().minutesUntilTrain +
             "</td></tr>");
+
     });
 
 });
