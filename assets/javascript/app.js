@@ -36,12 +36,11 @@ $(document).ready(function() {
 
         var firstTimeConverted = moment(firstTrain, "hh:mm").subtract(1, "years");
         var currentTime = moment();
-        var timeDiff = moment().diff(moment(firstTimeConverted), "minutes");
+        var timeDiff = currentTime.diff(moment(firstTimeConverted), "minutes");
         var remainder = timeDiff % frequency;
         var minutesUntilTrain = frequency - remainder;
-        var nextTrain = moment().add(minutesUntilTrain, "minutes");
+        var nextTrain = currentTime.add(minutesUntilTrain, "minutes");
         var arrivalTime = moment(nextTrain).format("hh:mm");
-        console.log(arrivalTime)
 
         database.ref().push({
             name: name,
@@ -51,7 +50,6 @@ $(document).ready(function() {
             arrivalTime: arrivalTime,
             minutesUntilTrain: minutesUntilTrain
         });
-
 
         $("#name").val("");
         $("#destination").val("");
