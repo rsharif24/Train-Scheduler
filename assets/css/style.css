@@ -7,12 +7,12 @@
 }
 
 .container{
-	width: 1500px;
+	
 }
 
 .title{
 	text-align: center;
-	font-size: 70px;
+	font-size: 60px;
 	margin-bottom: 30px;
 	color: #a89861;
 }
@@ -33,18 +33,18 @@
 #currentPanelHeader, #addPanelHeader{
 	background-color: transparent;
 	text-align: center;
-	font-size: 30px;
+	font-size: 20px;
 	color: #a89861;
 	font-weight: bold;
 }
 
 #table, .form-group{
-	font-size: 18px;
+	font-size: 13px;
 }
 
 #name, #destination, #firstTrain, #frequency{
 	background:rgba(196,196,196, 0.6);
-	font-size: 18px;
+	font-size: 13px;
 
 }
 
@@ -57,7 +57,7 @@
     color: white;
     padding: 15px 32px;
     text-align: center;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 #submit:hover{
